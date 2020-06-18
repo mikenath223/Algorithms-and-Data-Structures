@@ -20,3 +20,28 @@ Output:
 Explanation: 
 We only have one website domain: "discuss.leetcode.com". As discussed above,
 the subdomain "leetcode.com" and "com" will also be visited. So they will all be visited 9001 times.
+
+MY SOLUTION:
+
+# @param {String[]} cpdomains
+# @return {String[]}
+def subdomain_visits(cpdomains)
+  hash = Hash.new
+  cpdomains.each do |s|
+    num, dom = s.split(' ')
+    sub = dom.split('.')
+    (sub.length).times do |it|
+      subdomain = sub[it..-1].join(".")
+      hash[subdomain] = hash.fetch(subdomain, 0) + num.to_i
+    end
+  end
+  p hash
+  arr = []
+  hash.each do |k, v|
+    arr << "#{v} #{k}"
+  end
+  arr
+end
+
+#// [mail, com]...[yahoo, com] ,[wiki, org]
+
